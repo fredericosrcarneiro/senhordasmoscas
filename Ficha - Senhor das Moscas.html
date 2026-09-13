@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha - Senhor das Moscas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --ash:#f4f2ec;
+    --ash-2:#ffffff;
+    --bone:#161512;
+    --bone-dim:#655f52;
+    --line:#dcd7cb;
+    --moral:#3f5940;
+    --racional:#3a5975;
+    --social:#b85f26;
+    --emocional:#8a3838;
+    --coletivo:#8a6f3d;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ash);
+    color:var(--bone);
+    font-family:'Work Sans',sans-serif;
+    min-height:100vh;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:920px;margin:0 auto;}
+  header{margin-bottom:22px;}
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(24px,4vw,34px);
+    line-height:1.15;
+    margin:0 0 8px;
+    color:var(--bone);
+  }
+  .sub{
+    color:var(--bone-dim);
+    font-size:15px;
+    line-height:1.55;
+    max-width:64ch;
+  }
+  .student-bar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:4px;
+  }
+  .student-bar input, .student-bar select{
+    background:var(--ash-2);
+    border:1px solid var(--line);
+    color:var(--bone);
+    padding:8px 11px;
+    border-radius:3px;
+    font-family:'Work Sans',sans-serif;
+    font-size:13.5px;
+  }
+  .student-bar input{flex:1 1 220px; min-width:160px;}
+  .student-bar select{flex:0 0 190px;}
+
+  .group-card{margin-top:14px;}
+  .group-options{display:flex; flex-wrap:wrap; gap:10px;}
+  .group-opt{
+    flex:1 1 220px;
+    display:flex;
+    align-items:center;
+    background:var(--ash);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:10px 12px;
+    font-size:13.5px;
+    cursor:pointer;
+  }
+  .group-opt input{margin-right:8px;}
+
+  select#letterTarget{
+    width:100%;
+    background:var(--ash);
+    border:1px solid var(--line);
+    color:var(--bone);
+    padding:8px 10px;
+    border-radius:3px;
+    font-family:'Work Sans',sans-serif;
+    font-size:13.5px;
+    margin-bottom:10px;
+  }
+
+  .board{
+    display:flex;
+    flex-wrap:wrap;
+    gap:28px;
+    margin-top:22px;
+    align-items:flex-start;
+  }
+  .wheel-col{flex:1 1 380px; min-width:300px;}
+  .panel-col{flex:1 1 320px; min-width:280px;}
+
+  .char-picker{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:18px;
+  }
+  .char-btn{
+    background:var(--ash-2);
+    border:1px solid var(--line);
+    color:var(--bone-dim);
+    padding:7px 14px;
+    border-radius:3px;
+    font-family:'Work Sans',sans-serif;
+    font-size:13.5px;
+    cursor:pointer;
+    transition:border-color .15s, color .15s;
+  }
+  .char-btn:hover{border-color:var(--bone-dim);}
+  .char-btn.active{
+    color:var(--ash);
+    background:var(--bone);
+    border-color:var(--bone);
+  }
+  .custom-row{display:flex; gap:6px; margin-top:2px;}
+  .custom-row input{
+    background:var(--ash-2);
+    border:1px solid var(--line);
+    color:var(--bone);
+    padding:7px 10px;
+    border-radius:3px;
+    font-family:'Work Sans',sans-serif;
+    font-size:13.5px;
+    flex:1;
+    min-width:0;
+  }
+  .custom-row button{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--bone-dim);
+    padding:7px 12px;
+    border-radius:3px;
+    cursor:pointer;
+    font-size:13.5px;
+  }
+
+  svg{width:100%; height:auto; display:block; overflow:visible;}
+  .seg{cursor:pointer; stroke:var(--line); stroke-width:1.5;}
+  .seg-empty{fill:var(--ash-2);}
+  .seg:hover{opacity:.85;}
+  .axis-label{
+    fill:var(--bone);
+    font-family:'Work Sans',sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    text-anchor:middle;
+  }
+  .pole-label{
+    fill:var(--bone-dim);
+    font-family:'Work Sans',sans-serif;
+    font-size:9px;
+    text-anchor:middle;
+    paint-order:stroke fill;
+    stroke:var(--ash-2);
+    stroke-width:3px;
+    stroke-linejoin:round;
+  }
+  .center-name{
+    fill:var(--bone);
+    font-family:'Fraunces',serif;
+    font-size:17px;
+    font-weight:600;
+    text-anchor:middle;
+  }
+
+  .legend{
+    margin-top:16px;
+    font-size:12.5px;
+    color:var(--bone-dim);
+    line-height:1.5;
+  }
+
+  .card{
+    background:var(--ash-2);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:16px 18px;
+    margin-bottom:16px;
+  }
+  .card h2{
+    font-family:'Fraunces',serif;
+    font-size:15px;
+    font-weight:600;
+    margin:0 0 10px;
+    color:var(--bone);
+  }
+  .axis-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:6px 0;
+    border-bottom:1px solid var(--line);
+    font-size:13px;
+  }
+  .axis-row:last-child{border-bottom:none;}
+  .axis-row .dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    margin-right:7px; position:relative; top:-1px;
+  }
+  .axis-row .val{color:var(--bone-dim); font-variant-numeric:tabular-nums;}
+
+  textarea{
+    width:100%;
+    background:var(--ash);
+    border:1px solid var(--line);
+    color:var(--bone);
+    font-family:'Work Sans',sans-serif;
+    font-size:13.5px;
+    padding:10px;
+    border-radius:3px;
+    resize:vertical;
+    min-height:90px;
+    line-height:1.5;
+  }
+  textarea::placeholder{color:var(--bone-dim);}
+
+  .actions{display:flex; gap:8px; margin-top:14px;}
+  .actions button{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--bone-dim);
+    padding:9px 14px;
+    border-radius:3px;
+    cursor:pointer;
+    font-size:13px;
+    font-family:'Work Sans',sans-serif;
+  }
+  .actions button:hover{border-color:var(--bone-dim); color:var(--bone);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Roda de Construção de Personagem</h1>
+    <div class="sub">Cinco eixos tirados de <em>O Senhor das Moscas</em>. Escolha um personagem, clique nos anéis para marcar a intensidade de cada traço (do centro — polo mais contido — até a borda — polo mais extremo) e escreva uma carta aconselhando o personagem.</div>
+  </header>
+
+  <div class="student-bar">
+    <input id="studentName" type="text" placeholder="Nome do aluno">
+    <select id="studentGender">
+      <option value="">Gênero</option>
+      <option value="Masculino">Masculino</option>
+      <option value="Feminino">Feminino</option>
+    </select>
+  </div>
+
+  <div class="card group-card">
+    <h2>Se você estivesse na ilha…</h2>
+    <div class="group-options">
+      <label class="group-opt"><input type="radio" name="groupChoice" value="Grupo de Ralph"> Grupo de Ralph</label>
+      <label class="group-opt"><input type="radio" name="groupChoice" value="Tribo de Jack"> Tribo de Jack</label>
+    </div>
+    <textarea id="groupJustify" placeholder="Justifique por que você se juntaria a esse grupo…" style="min-height:70px; margin-top:10px;"></textarea>
+  </div>
+
+  <div class="board">
+    <div class="wheel-col">
+      <div class="char-picker" id="charPicker"></div>
+      <div class="custom-row">
+        <input id="customName" type="text" placeholder="Adicionar outro personagem…" maxlength="24">
+        <button id="addCustom">Adicionar</button>
+      </div>
+      <svg id="wheel" viewBox="0 0 600 600"></svg>
+      <div class="legend">Clique num anel para marcar o grau (1 = próximo do centro, 5 = borda). Clique de novo no mesmo grau para apagar.</div>
+    </div>
+
+    <div class="panel-col">
+      <div class="card">
+        <h2 id="cardCharName">Ralph</h2>
+        <div id="axisSummary"></div>
+      </div>
+      <div class="card">
+        <h2>Carta</h2>
+        <select id="letterTarget"></select>
+        <textarea id="letterText" placeholder="Escreva a carta para o personagem escolhido acima, aconselhando-o com base em como você classificou os traços dele na roda…"></textarea>
+      </div>
+      <div class="actions">
+        <button id="resetChar">Limpar este personagem</button>
+        <button id="exportPDF">Baixar PDF final</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const AXES = [
+  {id:'moral',     label:'Moral',     inner:'Altruísmo',  outer:'Crueldade',           color:'var(--moral)',     hex:'#3f5940'},
+  {id:'racional',  label:'Cognitivo', inner:'Razão',       outer:'Instinto',            color:'var(--racional)',  hex:'#3a5975'},
+  {id:'social',    label:'Liderança', inner:'Consenso',    outer:'Poder pelo medo',     color:'var(--social)',    hex:'#b85f26'},
+  {id:'emocional', label:'Emocional', inner:'Coragem',     outer:'Medo',                color:'var(--emocional)', hex:'#8a3838'},
+  {id:'coletivo',  label:'Coletivo',  inner:'Civilização', outer:'Selvageria',          color:'var(--coletivo)',  hex:'#8a6f3d'},
+];
+
+const DEFAULT_CHARS = ["Ralph","Jack","Porquinho","Simon","Roger"];
+let characters = [...DEFAULT_CHARS];
+let current = characters[0];
+let data = {}; // { name: { axisId: level(0-5) } }
+characters.forEach(c => data[c] = {});
+
+const cx=300, cy=300, rInner=46, rOuter=200, levels=5, ringGap=2, wedgeGapDeg=2.2;
+const ringWidth = (rOuter-rInner)/levels;
+
+function polar(cx,cy,r,angDeg){
+  const a = (angDeg-90) * Math.PI/180;
+  return {x: cx + r*Math.cos(a), y: cy + r*Math.sin(a)};
+}
+function donutPath(r1,r2,a1,a2){
+  const p1=polar(cx,cy,r2,a1), p2=polar(cx,cy,r2,a2);
+  const p3=polar(cx,cy,r1,a2), p4=polar(cx,cy,r1,a1);
+  const large = (a2-a1) > 180 ? 1 : 0;
+  return `M ${p1.x} ${p1.y} A ${r2} ${r2} 0 ${large} 1 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${r1} ${r1} 0 ${large} 0 ${p4.x} ${p4.y} Z`;
+}
+
+const svg = document.getElementById('wheel');
+const wedgeAngle = 360/AXES.length;
+
+function buildWheel(){
+  svg.innerHTML = '';
+  AXES.forEach((axis, i) => {
+    const a1 = i*wedgeAngle + wedgeGapDeg/2;
+    const a2 = (i+1)*wedgeAngle - wedgeGapDeg/2;
+    for(let lvl=1; lvl<=levels; lvl++){
+      const r1 = rInner + (lvl-1)*ringWidth + ringGap/2;
+      const r2 = rInner + lvl*ringWidth - ringGap/2;
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', donutPath(r1,r2,a1,a2));
+      path.classList.add('seg');
+      path.dataset.axis = axis.id;
+      path.dataset.level = lvl;
+      path.addEventListener('click', onSegClick);
+      svg.appendChild(path);
+    }
+    // axis label
+    const midAngle = i*wedgeAngle + wedgeAngle/2;
+    const labelPos = polar(cx,cy,rOuter+16,midAngle);
+    const lab = document.createElementNS('http://www.w3.org/2000/svg','text');
+    lab.setAttribute('x',labelPos.x); lab.setAttribute('y',labelPos.y);
+    lab.setAttribute('class','axis-label');
+    lab.textContent = axis.label;
+    svg.appendChild(lab);
+    // pole labels
+    const innerPos = polar(cx,cy,rInner+11,midAngle);
+    const innerLab = document.createElementNS('http://www.w3.org/2000/svg','text');
+    innerLab.setAttribute('x',innerPos.x); innerLab.setAttribute('y',innerPos.y);
+    innerLab.setAttribute('class','pole-label');
+    innerLab.textContent = axis.inner;
+    svg.appendChild(innerLab);
+    const outerPos = polar(cx,cy,rOuter+34,midAngle);
+    const outerLab = document.createElementNS('http://www.w3.org/2000/svg','text');
+    outerLab.setAttribute('x',outerPos.x); outerLab.setAttribute('y',outerPos.y);
+    outerLab.setAttribute('class','pole-label');
+    outerLab.textContent = axis.outer;
+    svg.appendChild(outerLab);
+  });
+  const holeBg = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  holeBg.setAttribute('cx',cx); holeBg.setAttribute('cy',cy);
+  holeBg.setAttribute('r', rInner-4);
+  holeBg.setAttribute('fill','var(--ash-2)');
+  svg.appendChild(holeBg);
+  const centerName = document.createElementNS('http://www.w3.org/2000/svg','text');
+  centerName.setAttribute('x',cx); centerName.setAttribute('y',cy+6);
+  centerName.setAttribute('class','center-name');
+  centerName.id = 'centerNameText';
+  svg.appendChild(centerName);
+
+  refreshWheelColors();
+}
+
+function onSegClick(e){
+  const axisId = e.target.dataset.axis;
+  const lvl = parseInt(e.target.dataset.level,10);
+  if(!data[current]) data[current] = {};
+  const cur = data[current][axisId] || 0;
+  data[current][axisId] = (cur === lvl) ? lvl-1 : lvl;
+  refreshWheelColors();
+  refreshPanel();
+}
+
+function refreshWheelColors(){
+  document.getElementById('centerNameText').textContent = current;
+  const segs = svg.querySelectorAll('.seg');
+  segs.forEach(seg => {
+    const axisId = seg.dataset.axis;
+    const lvl = parseInt(seg.dataset.level,10);
+    const axis = AXES.find(a=>a.id===axisId);
+    const val = (data[current] && data[current][axisId]) || 0;
+    if(lvl <= val){
+      seg.style.fill = axis.hex;
+      seg.style.opacity = 0.55 + (lvl/levels)*0.45;
+    } else {
+      seg.style.fill = '';
+      seg.classList.add('seg-empty');
+      seg.style.opacity = 1;
+    }
+    if(lvl > val){ seg.classList.add('seg-empty'); } else { seg.classList.remove('seg-empty'); }
+  });
+}
+
+function buildCharPicker(){
+  const wrap = document.getElementById('charPicker');
+  wrap.innerHTML = '';
+  characters.forEach(name => {
+    const btn = document.createElement('button');
+    btn.className = 'char-btn' + (name===current ? ' active' : '');
+    btn.textContent = name;
+    btn.addEventListener('click', () => {
+      current = name;
+      if(!data[current]) data[current] = {};
+      buildCharPicker();
+      refreshWheelColors();
+      refreshPanel();
+    });
+    wrap.appendChild(btn);
+  });
+  populateLetterTarget();
+}
+
+function populateLetterTarget(){
+  const sel = document.getElementById('letterTarget');
+  const prev = sel.value;
+  sel.innerHTML = '';
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = 'Escrever carta para…';
+  sel.appendChild(placeholder);
+  characters.forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    sel.appendChild(opt);
+  });
+  if(characters.includes(prev)) sel.value = prev;
+}
+
+function refreshPanel(){
+  document.getElementById('cardCharName').textContent = current;
+  const summary = document.getElementById('axisSummary');
+  summary.innerHTML = '';
+  AXES.forEach(axis => {
+    const val = (data[current] && data[current][axis.id]) || 0;
+    const row = document.createElement('div');
+    row.className = 'axis-row';
+    row.innerHTML = `<span><span class="dot" style="background:${axis.hex}"></span>${axis.label}: ${axis.inner} ↔ ${axis.outer}</span><span class="val">${val ? val+'/5' : '—'}</span>`;
+    summary.appendChild(row);
+  });
+}
+
+let letterTarget = '';
+let letterText = '';
+document.getElementById('letterText').addEventListener('input', e => {
+  letterText = e.target.value;
+});
+document.getElementById('letterTarget').addEventListener('change', e => {
+  letterTarget = e.target.value;
+});
+
+document.getElementById('addCustom').addEventListener('click', () => {
+  const input = document.getElementById('customName');
+  const name = input.value.trim();
+  if(!name || characters.includes(name)) return;
+  characters.push(name);
+  data[name] = {};
+  current = name;
+  input.value = '';
+  buildCharPicker();
+  refreshWheelColors();
+  refreshPanel();
+});
+document.getElementById('customName').addEventListener('keydown', e => {
+  if(e.key==='Enter'){ document.getElementById('addCustom').click(); }
+});
+
+document.getElementById('resetChar').addEventListener('click', () => {
+  data[current] = {};
+  refreshWheelColors();
+  refreshPanel();
+});
+
+function getStudentInfo(){
+  const name = document.getElementById('studentName').value.trim() || 'Aluno sem nome';
+  const gender = document.getElementById('studentGender').value || 'não informado';
+  return {name, gender};
+}
+
+function charactersWithData(){
+  return characters.filter(name => {
+    const d = data[name];
+    if(!d) return false;
+    return AXES.some(axis => d[axis.id]);
+  });
+}
+
+function escapeXml(str){
+  return String(str).replace(/[<>&'"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;',"'":'&apos;','"':'&quot;'}[c]));
+}
+
+function buildCharacterSvgString(name){
+  let inner = `<rect x="0" y="0" width="600" height="600" fill="#ffffff"/>`;
+  AXES.forEach((axis, i) => {
+    const a1 = i*wedgeAngle + wedgeGapDeg/2;
+    const a2 = (i+1)*wedgeAngle - wedgeGapDeg/2;
+    const val = (data[name] && data[name][axis.id]) || 0;
+    for(let lvl=1; lvl<=levels; lvl++){
+      const r1 = rInner + (lvl-1)*ringWidth + ringGap/2;
+      const r2 = rInner + lvl*ringWidth - ringGap/2;
+      const d = donutPath(r1,r2,a1,a2);
+      const fill = lvl <= val ? axis.hex : '#ffffff';
+      const opacity = lvl <= val ? (0.55 + (lvl/levels)*0.45) : 1;
+      inner += `<path d="${d}" fill="${fill}" fill-opacity="${opacity}" stroke="#dcd7cb" stroke-width="1.5"/>`;
+    }
+    const midAngle = i*wedgeAngle + wedgeAngle/2;
+    const labelPos = polar(cx,cy,rOuter+16,midAngle);
+    const innerPos = polar(cx,cy,rInner+11,midAngle);
+    const outerPos = polar(cx,cy,rOuter+34,midAngle);
+    inner += `<text x="${labelPos.x}" y="${labelPos.y}" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#161512" text-anchor="middle">${escapeXml(axis.label)}</text>`;
+    inner += `<text x="${innerPos.x}" y="${innerPos.y}" font-family="Arial, sans-serif" font-size="9" fill="#655f52" text-anchor="middle" stroke="#ffffff" stroke-width="3" paint-order="stroke fill">${escapeXml(axis.inner)}</text>`;
+    inner += `<text x="${outerPos.x}" y="${outerPos.y}" font-family="Arial, sans-serif" font-size="9" fill="#655f52" text-anchor="middle" stroke="#ffffff" stroke-width="3" paint-order="stroke fill">${escapeXml(axis.outer)}</text>`;
+  });
+  inner += `<circle cx="${cx}" cy="${cy}" r="${rInner-4}" fill="#ffffff"/>`;
+  inner += `<text x="${cx}" y="${cy+7}" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#161512" text-anchor="middle">${escapeXml(name)}</text>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">${inner}</svg>`;
+}
+
+function svgStringToPngDataUrl(svgString, size){
+  return new Promise((resolve, reject) => {
+    const blob = new Blob([svgString], {type:'image/svg+xml;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = size; canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0,0,size,size);
+      ctx.drawImage(img,0,0,size,size);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+document.getElementById('exportPDF').addEventListener('click', async () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'pt', format:'a4'});
+  const student = getStudentInfo();
+  const marginL = 50;
+  let y = 60;
+  const pageH = 800;
+  const lineH = 16;
+
+  function ensureSpace(extra){
+    if(y + extra > pageH){ doc.addPage(); y = 60; }
+  }
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(16);
+  doc.text('Roda de Construção de Personagem — O Senhor das Moscas', marginL, y);
+  y += 26;
+  doc.setFont('helvetica','normal'); doc.setFontSize(11);
+  doc.text(`Aluno(a): ${student.name}    Gênero: ${student.gender}`, marginL, y);
+  y += 26;
+
+  const groupRadio = document.querySelector('input[name="groupChoice"]:checked');
+  const groupChoice = groupRadio ? groupRadio.value : '(não marcou um grupo)';
+  const groupJustify = document.getElementById('groupJustify').value.trim() || '(justificativa não escrita)';
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(12.5);
+  doc.text('Se estivesse na ilha, se juntaria a:', marginL, y);
+  y += 16;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10.5);
+  const groupWrapped = doc.splitTextToSize(groupChoice, 495);
+  groupWrapped.forEach(line => { ensureSpace(lineH); doc.text(line, marginL, y); y += lineH; });
+  y += 4;
+  doc.setFont('helvetica','bold'); doc.setFontSize(11);
+  ensureSpace(20);
+  doc.text('Justificativa:', marginL, y);
+  y += 16;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10.5);
+  const groupJustWrapped = doc.splitTextToSize(groupJustify, 495);
+  groupJustWrapped.forEach(line => { ensureSpace(lineH); doc.text(line, marginL, y); y += lineH; });
+  y += 28;
+
+  const list = charactersWithData();
+  if(list.length === 0){ list.push(current); }
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(12.5);
+  ensureSpace(20);
+  doc.text('Rodas de personagem:', marginL, y);
+  y += 16;
+
+  const imgSize = 230;
+  const gap = 20;
+  const cols = 2;
+  for(let idx=0; idx<list.length; idx++){
+    const col = idx % cols;
+    if(col === 0) ensureSpace(imgSize + gap);
+    const x = marginL + col*(imgSize+gap);
+    const dataUrl = await svgStringToPngDataUrl(buildCharacterSvgString(list[idx]), 600);
+    doc.addImage(dataUrl, 'PNG', x, y, imgSize, imgSize);
+    if(col === cols-1 || idx === list.length-1){ y += imgSize + gap; }
+  }
+  y += 8;
+
+  ensureSpace(60);
+  const target = letterTarget || '(personagem não escolhido)';
+  doc.setFont('helvetica','bold'); doc.setFontSize(13);
+  doc.text(`Carta para ${target}`, marginL, y);
+  y += 20;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10.5);
+  const letter = letterText.trim() || '(carta não escrita)';
+  const wrapped = doc.splitTextToSize(letter, 495);
+  wrapped.forEach(line => {
+    ensureSpace(lineH);
+    doc.text(line, marginL, y);
+    y += lineH;
+  });
+
+  const safeName = student.name.replace(/[^a-zA-Z0-9À-ÿ ]/g,'').trim().replace(/\s+/g,'-') || 'aluno';
+  doc.save(`carta-${safeName}.pdf`);
+});
+
+buildCharPicker();
+buildWheel();
+refreshPanel();
+</script>
+</body>
+</html>
