@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resultados da Turma - Senhor das Moscas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --ash:#f4f2ec;
+    --ash-2:#ffffff;
+    --bone:#161512;
+    --bone-dim:#655f52;
+    --line:#dcd7cb;
+    --moral:#3f5940;
+    --racional:#3a5975;
+    --social:#b85f26;
+    --emocional:#8a3838;
+    --coletivo:#8a6f3d;
+    --ralph:#3a5975;
+    --jack:#8a3838;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:28px 16px 60px;
+    background:var(--ash);
+    color:var(--bone);
+    font-family:'Work Sans',sans-serif;
+  }
+  .wrap{max-width:1080px; margin:0 auto;}
+  h1{
+    font-family:'Fraunces',serif; font-weight:700;
+    font-size:clamp(24px,4vw,32px); margin:0 0 6px;
+  }
+  .sub{color:var(--bone-dim); font-size:14.5px; max-width:70ch; line-height:1.5;}
+  .caveat{
+    background:var(--ash-2); border:1px solid var(--line); border-left:4px solid var(--social);
+    border-radius:4px; padding:14px 16px; margin:22px 0; font-size:13.5px; line-height:1.55;
+  }
+  .caveat strong{color:var(--bone);}
+  h2{
+    font-family:'Fraunces',serif; font-weight:600; font-size:19px;
+    margin:36px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .stat-row{display:flex; flex-wrap:wrap; gap:14px; margin-bottom:8px;}
+  .stat-card{
+    background:var(--ash-2); border:1px solid var(--line); border-radius:6px;
+    padding:16px 20px; flex:1 1 150px; min-width:130px; text-align:center;
+  }
+  .stat-card .num{font-family:'Fraunces',serif; font-size:28px; font-weight:700;}
+  .stat-card .lbl{font-size:12px; color:var(--bone-dim); margin-top:4px;}
+
+  .chart-card{
+    background:var(--ash-2); border:1px solid var(--line); border-radius:6px; padding:20px;
+  }
+  .legend-row{display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; font-size:12.5px; color:var(--bone-dim);}
+  .legend-row span{display:inline-flex; align-items:center; gap:6px;}
+  .legend-row .sw{width:11px; height:11px; border-radius:2px; display:inline-block;}
+
+  .char-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:18px;
+  }
+  .char-card{
+    background:var(--ash-2); border:1px solid var(--line); border-radius:6px;
+    padding:14px; text-align:center;
+  }
+  .char-card h3{
+    font-family:'Fraunces',serif; font-size:16px; margin:6px 0 2px; font-weight:700;
+  }
+  .char-card .note{font-size:11.5px; color:var(--bone-dim); margin-top:6px; line-height:1.4;}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px; background:var(--ash-2); border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+  th,td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--line);}
+  th{background:var(--ash); font-weight:600; font-size:12.5px; color:var(--bone-dim); text-transform:uppercase; letter-spacing:.02em;}
+  tr:last-child td{border-bottom:none;}
+  .tag{
+    display:inline-block; padding:2px 8px; border-radius:20px; font-size:11.5px; font-weight:600;
+  }
+  .tag-alto{background:#f3e3e3; color:#8a3838;}
+  .tag-medio{background:#efe9d8; color:#8a6f3d;}
+  .tag-baixo{background:#e9edf0; color:#655f52;}
+
+  .letter-card{
+    background:var(--ash); border:1px solid var(--line); border-radius:6px;
+    padding:14px 16px; margin-bottom:12px;
+  }
+  .letter-card .who{font-weight:600; font-size:13.5px; margin-bottom:2px;}
+  .letter-card .gender-tag{font-size:11.5px; color:var(--bone-dim); font-weight:400;}
+  .letter-card .text{font-size:13.5px; line-height:1.55; margin-top:6px; white-space:pre-wrap;}
+  .letter-card .text.empty{color:var(--bone-dim); font-style:italic;}
+
+  footer{margin-top:40px; font-size:12px; color:var(--bone-dim); text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Resultados da Turma — Roda de Construção de Personagem</h1>
+  <div class="sub">O Senhor das Moscas · 28 respostas analisadas</div>
+
+  <div class="caveat">
+    <strong>Nota sobre os dados quantitativos:</strong> os níveis dos eixos (Baixo / Médio / Alto) vêm de uma leitura visual das rodas exportadas em PDF, não de uma medição exata anel a anel — pequenas diferenças de nível (ex.: 2 vs. 3) não são garantidas. As contagens de grupo e gênero, por outro lado, vêm direto do texto preenchido pelos alunos e são exatas.
+  </div>
+
+  <h2>Visão geral</h2>
+  <div class="stat-row">
+    <div class="stat-card"><div class="num">28</div><div class="lbl">Alunos</div></div>
+    <div class="stat-card"><div class="num">21</div><div class="lbl">Grupo de Ralph</div></div>
+    <div class="stat-card"><div class="num">7</div><div class="lbl">Tribo de Jack</div></div>
+    <div class="stat-card"><div class="num">14 / 11 / 3</div><div class="lbl">Fem. / Masc. / N.I.</div></div>
+  </div>
+
+  <h2>Grupo escolhido, por gênero</h2>
+  <div class="chart-card">
+    <svg id="groupChart" viewBox="0 0 700 260" style="width:100%; height:auto; display:block;"></svg>
+    <div class="legend-row">
+      <span><span class="sw" style="background:var(--ralph)"></span>Grupo de Ralph</span>
+      <span><span class="sw" style="background:var(--jack)"></span>Tribo de Jack</span>
+    </div>
+  </div>
+
+  <h2>Personagem escolhido para a carta, por gênero</h2>
+  <div class="chart-card">
+    <svg id="letterChart" viewBox="0 0 700 320" style="width:100%; height:auto; display:block;"></svg>
+    <div class="legend-row" id="letterLegend"></div>
+    <div class="sub" style="margin-top:10px;">Dado exato — extraído diretamente do campo "Carta para" preenchido por cada aluno (não é leitura visual).</div>
+  </div>
+
+  <h2>Nível típico por eixo, em cada personagem</h2>
+  <div class="char-grid" id="charGrid"></div>
+
+  <h2>Resumo por eixo (tabela)</h2>
+  <table id="axisTable">
+    <thead>
+      <tr><th>Personagem</th><th>Moral</th><th>Cognitivo</th><th>Liderança</th><th>Emocional</th><th>Coletivo</th><th>Leitura</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>Análise de conteúdo: enquadramentos (framings) das cartas</h2>
+  <div class="caveat">
+    <strong>Nota metodológica:</strong> esta categorização é uma leitura interpretativa única, feita por mim a partir do conteúdo de cada carta — não é uma classificação objetiva nem exaustiva. Uma carta pode conter elementos de mais de um enquadramento; aqui cada uma foi enquadrada pelo tom dominante.
+  </div>
+  <div class="char-picker" id="framingGenderFilter" style="margin-bottom:14px;"></div>
+  <div class="chart-card">
+    <svg id="framingChart" viewBox="0 0 700 340" style="width:100%; height:auto; display:block;"></svg>
+  </div>
+  <table style="margin-top:16px;">
+    <thead><tr><th>Framing</th><th>Descrição</th><th>Nº</th><th>Exemplo</th></tr></thead>
+    <tbody id="framingTable"></tbody>
+  </table>
+
+  <h2>Ler as cartas por personagem</h2>
+  <div class="chart-card">
+    <select id="letterFilter" style="width:100%; max-width:280px; padding:9px 12px; border-radius:4px; border:1px solid var(--line); background:var(--ash); color:var(--bone); font-family:'Work Sans',sans-serif; font-size:14px; margin-bottom:16px;"></select>
+    <div id="letterList"></div>
+  </div>
+
+  <footer>Gerado a partir de 28 fichas preenchidas pelos alunos — leitura visual das rodas, não medição exata.</footer>
+</div>
+
+<script>
+const AXES = [
+  {id:'moral', label:'Moral', hex:'#3f5940'},
+  {id:'racional', label:'Cognitivo', hex:'#3a5975'},
+  {id:'social', label:'Liderança', hex:'#b85f26'},
+  {id:'emocional', label:'Emocional', hex:'#8a3838'},
+  {id:'coletivo', label:'Coletivo', hex:'#8a6f3d'},
+];
+const BAND = {baixo:1, medio:3, alto:5};
+const BANDLABEL = {baixo:'Baixo', medio:'Médio', alto:'Alto'};
+
+const CHAR_DATA = {
+  'Ralph':     {moral:'medio', racional:'alto',  social:'medio', emocional:'alto',  coletivo:'medio'},
+  'Jack':      {moral:'alto',  racional:'alto',  social:'alto',  emocional:'alto',  coletivo:'alto'},
+  'Porquinho': {moral:'baixo', racional:'baixo', social:'baixo', emocional:'alto',  coletivo:'baixo'},
+  'Simon':     {moral:'baixo', racional:'baixo', social:'baixo', emocional:'alto',  coletivo:'baixo'},
+  'Roger':     {moral:'alto',  racional:'alto',  social:'alto',  emocional:'alto',  coletivo:'alto'},
+};
+
+// ---- bar chart: group choice by gender ----
+(function(){
+  const svg = document.getElementById('groupChart');
+  const data = [
+    {label:'Feminino', ralph:11, jack:3},
+    {label:'Masculino', ralph:7, jack:4},
+    {label:'Não informado', ralph:3, jack:0},
+  ];
+  const W=700,H=260, padL=60, padB=40, padT=20, chartW=W-padL-40, chartH=H-padB-padT;
+  const maxVal = 12;
+  const groupW = chartW/data.length;
+  let svgContent = '';
+  // axis line
+  svgContent += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT+chartH}" stroke="#dcd7cb"/>`;
+  svgContent += `<line x1="${padL}" y1="${padT+chartH}" x2="${padL+chartW}" y2="${padT+chartH}" stroke="#dcd7cb"/>`;
+  [0,3,6,9,12].forEach(v=>{
+    const y = padT+chartH-(v/maxVal)*chartH;
+    svgContent += `<line x1="${padL}" y1="${y}" x2="${padL+chartW}" y2="${y}" stroke="#eee" stroke-dasharray="3,3"/>`;
+    svgContent += `<text x="${padL-10}" y="${y+4}" font-size="11" fill="#655f52" text-anchor="end" font-family="Work Sans, sans-serif">${v}</text>`;
+  });
+  data.forEach((d,i)=>{
+    const gx = padL + i*groupW;
+    const barW = 46;
+    const gapMid = 8;
+    const x1 = gx + groupW/2 - barW - gapMid/2;
+    const x2 = gx + groupW/2 + gapMid/2;
+    const h1 = (d.ralph/maxVal)*chartH;
+    const h2 = (d.jack/maxVal)*chartH;
+    svgContent += `<rect x="${x1}" y="${padT+chartH-h1}" width="${barW}" height="${h1}" fill="#3a5975" rx="2"/>`;
+    svgContent += `<text x="${x1+barW/2}" y="${padT+chartH-h1-6}" font-size="12" fill="#161512" text-anchor="middle" font-weight="600" font-family="Work Sans, sans-serif">${d.ralph}</text>`;
+    svgContent += `<rect x="${x2}" y="${padT+chartH-h2}" width="${barW}" height="${h2}" fill="#8a3838" rx="2"/>`;
+    svgContent += `<text x="${x2+barW/2}" y="${padT+chartH-h2-6}" font-size="12" fill="#161512" text-anchor="middle" font-weight="600" font-family="Work Sans, sans-serif">${d.jack}</text>`;
+    svgContent += `<text x="${gx+groupW/2}" y="${padT+chartH+22}" font-size="12.5" fill="#161512" text-anchor="middle" font-family="Work Sans, sans-serif">${d.label}</text>`;
+  });
+  svg.innerHTML = svgContent;
+})();
+
+// ---- grouped bar: characters on x-axis, gender as the cut ----
+(function(){
+  const svg = document.getElementById('letterChart');
+  const GENDER_COLORS = {
+    'Feminino':'#9c4f6a', 'Masculino':'#3a5975', 'Não informado':'#9c9483'
+  };
+  const genders = ['Feminino','Masculino','Não informado'];
+  // personagem -> genero -> contagem (extraído do campo "Carta para")
+  const data = [
+    {name:'Ralph',     Feminino:3, Masculino:5, 'Não informado':1},
+    {name:'Jack',      Feminino:7, Masculino:1, 'Não informado':0},
+    {name:'Porquinho', Feminino:2, Masculino:4, 'Não informado':0},
+    {name:'Simon',     Feminino:1, Masculino:1, 'Não informado':1},
+    {name:'Roger',     Feminino:1, Masculino:0, 'Não informado':0},
+  ];
+  const W=700,H=320, padL=60, padR=20, padT=20, padB=40;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  const maxVal = 8;
+  const groupW = chartW/data.length;
+  const barW = 20, barGap = 4;
+  let s = '';
+  s += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT+chartH}" stroke="#dcd7cb"/>`;
+  s += `<line x1="${padL}" y1="${padT+chartH}" x2="${padL+chartW}" y2="${padT+chartH}" stroke="#dcd7cb"/>`;
+  [0,2,4,6,8].forEach(v=>{
+    const y = padT+chartH-(v/maxVal)*chartH;
+    s += `<line x1="${padL}" y1="${y}" x2="${padL+chartW}" y2="${y}" stroke="#eee" stroke-dasharray="3,3"/>`;
+    s += `<text x="${padL-10}" y="${y+4}" font-size="11" fill="#655f52" text-anchor="end" font-family="Work Sans, sans-serif">${v}</text>`;
+  });
+  data.forEach((d,i)=>{
+    const gx = padL + i*groupW + groupW/2 - (genders.length*barW + (genders.length-1)*barGap)/2;
+    genders.forEach((g,j)=>{
+      const v = d[g] || 0;
+      const h = (v/maxVal)*chartH;
+      const x = gx + j*(barW+barGap);
+      s += `<rect x="${x}" y="${padT+chartH-h}" width="${barW}" height="${h}" fill="${GENDER_COLORS[g]}" rx="2"/>`;
+      if(v>0) s += `<text x="${x+barW/2}" y="${padT+chartH-h-6}" font-size="11" fill="#161512" text-anchor="middle" font-weight="600" font-family="Work Sans, sans-serif">${v}</text>`;
+    });
+    s += `<text x="${padL+i*groupW+groupW/2}" y="${padT+chartH+22}" font-size="12.5" fill="#161512" text-anchor="middle" font-family="Work Sans, sans-serif">${d.name}</text>`;
+  });
+  svg.innerHTML = s;
+
+  const legend = document.getElementById('letterLegend');
+  genders.forEach(g=>{
+    const span = document.createElement('span');
+    span.innerHTML = `<span class="sw" style="background:${GENDER_COLORS[g]}"></span>${g}`;
+    legend.appendChild(span);
+  });
+})();
+
+// ---- mini aggregate wheels per character ----
+function polar(cx,cy,r,angDeg){
+  const a=(angDeg-90)*Math.PI/180;
+  return {x:cx+r*Math.cos(a), y:cy+r*Math.sin(a)};
+}
+function donutPath(cx,cy,r1,r2,a1,a2){
+  const p1=polar(cx,cy,r2,a1), p2=polar(cx,cy,r2,a2);
+  const p3=polar(cx,cy,r1,a2), p4=polar(cx,cy,r1,a1);
+  const large=(a2-a1)>180?1:0;
+  return `M ${p1.x} ${p1.y} A ${r2} ${r2} 0 ${large} 1 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${r1} ${r1} 0 ${large} 0 ${p4.x} ${p4.y} Z`;
+}
+function buildMiniWheelSvg(name, bands){
+  const cx=110, cy=110, rInner=20, rOuter=95, levels=5, gap=1.5, wedgeGap=2;
+  const wedgeAngle = 360/AXES.length;
+  const ringW = (rOuter-rInner)/levels;
+  let s = `<svg viewBox="0 0 220 220" width="100%" height="auto">`;
+  AXES.forEach((axis,i)=>{
+    const a1=i*wedgeAngle+wedgeGap/2, a2=(i+1)*wedgeAngle-wedgeGap/2;
+    const val = BAND[bands[axis.id]] || 0;
+    for(let lvl=1; lvl<=levels; lvl++){
+      const r1=rInner+(lvl-1)*ringW+gap/2, r2=rInner+lvl*ringW-gap/2;
+      const fill = lvl<=val ? axis.hex : '#ffffff';
+      const op = lvl<=val ? (0.5+(lvl/levels)*0.5) : 1;
+      s += `<path d="${donutPath(cx,cy,r1,r2,a1,a2)}" fill="${fill}" fill-opacity="${op}" stroke="#dcd7cb" stroke-width="1"/>`;
+    }
+  });
+  s += `<circle cx="${cx}" cy="${cy}" r="${rInner-3}" fill="#ffffff"/>`;
+  s += `</svg>`;
+  return s;
+}
+
+const grid = document.getElementById('charGrid');
+Object.keys(CHAR_DATA).forEach(name=>{
+  const bands = CHAR_DATA[name];
+  const div = document.createElement('div');
+  div.className = 'char-card';
+  div.innerHTML = buildMiniWheelSvg(name, bands) + `<h3>${name}</h3>`;
+  grid.appendChild(div);
+});
+
+const tbody = document.querySelector('#axisTable tbody');
+Object.keys(CHAR_DATA).forEach(name=>{
+  const bands = CHAR_DATA[name];
+  const tr = document.createElement('tr');
+  let cells = `<td><strong>${name}</strong></td>`;
+  AXES.forEach(axis=>{
+    const b = bands[axis.id];
+    cells += `<td><span class="tag tag-${b}">${BANDLABEL[b]}</span></td>`;
+  });
+  const allSame = new Set(Object.values(bands)).size === 1;
+  cells += `<td style="font-size:12px; color:var(--bone-dim);">${allSame ? 'Tratado como extremo em todos os eixos' : (bands.emocional==='alto' && bands.moral==='baixo' ? 'Só o Emocional se destaca' : '—')}</td>`;
+  tr.innerHTML = cells;
+  tbody.appendChild(tr);
+});
+
+// ---- content analysis: message framings ----
+const FRAMINGS = [
+  {id:'condenacao', label:'Condenação moral', desc:'Julga duramente a conduta, atribui culpa', color:'#8a3838'},
+  {id:'elogio', label:'Elogio / admiração', desc:'Enaltece coragem, liderança ou caráter', color:'#3a5975'},
+  {id:'luto', label:'Cuidado / luto', desc:'Pesar, proteção, despedida afetiva', color:'#8a6f3d'},
+  {id:'retributiva', label:'Justiça retributiva', desc:'Deseja um desfecho diferente, mais punitivo', color:'#6b5b8f'},
+  {id:'conselho', label:'Conselho corretivo', desc:'Aponta o que deveria ter sido feito diferente', color:'#3f5940'},
+  {id:'apoio', label:'Apoio / incentivo emocional', desc:'Reforça autoestima, legitima o personagem', color:'#b85f26'},
+  {id:'critica_carater', label:'Crítica de caráter', desc:'Desqualifica (ingenuidade, covardia, utilidade)', color:'#9c4f6a'},
+  {id:'causal', label:'Compreensão causal-psicológica', desc:'Explica o comportamento por uma causa (medo, trauma)', color:'#5b7c99'},
+  {id:'pragmatico', label:'Endosso pragmático', desc:'Elogia competência sem julgar a violência', color:'#9c9483'},
+];
+const FRAMING_ASSIGN = {
+  'Aluno 2':'conselho', 'Aluno 3':'condenacao', 'Aluno 4':'luto', 'Aluno 5':'condenacao',
+  'Aluno 6':'elogio', 'Aluno 7':'elogio', 'Aluno 8':'pragmatico', 'Aluno 9':'causal',
+  'Aluno 10':'apoio', 'Aluno 11':'critica_carater', 'Aluno 13':'luto', 'Aluno 14':'luto',
+  'Aluno 15':'conselho', 'Aluno 16':'retributiva', 'Aluno 17':'apoio', 'Aluno 18':'retributiva',
+  'Aluno 19':'condenacao', 'Aluno 20':'condenacao', 'Aluno 21':'apoio', 'Aluno 22':'critica_carater',
+  'Aluno 23':'conselho', 'Aluno 24':'elogio', 'Aluno 25':'condenacao', 'Aluno 26':'elogio',
+  'Aluno 27':'condenacao', 'Aluno 28':'retributiva',
+};
+const FRAMING_EXAMPLE = {
+  condenacao: {aluno:'Aluno 5', quote:'"voce nao merece viver"'},
+  elogio: {aluno:'Aluno 6', quote:'"você foi um ótimo líder... pensamento moral e ético"'},
+  luto: {aluno:'Aluno 14', quote:'"tome cuidado com os seus colegas caçadores... beijos"'},
+  retributiva: {aluno:'Aluno 18', quote:'"Você devia ter tido mais força e acabado com o Jack."'},
+  conselho: {aluno:'Aluno 2', quote:'"pare de agir pelo instinto, e comece a agir pela razão"'},
+  apoio: {aluno:'Aluno 17', quote:'"você é uma pessoa boa... nunca deixe ninguém te subestimar"'},
+  critica_carater: {aluno:'Aluno 22', quote:'"ingênuo demais, devia revitar mais"'},
+  causal: {aluno:'Aluno 9', quote:'"vc usou o medo para controlar os outros pq ele te controlava"'},
+  pragmatico: {aluno:'Aluno 8', quote:'"vc e o melhor na caça mn parabens"'},
+};
+const GENDER_BY_ALUNO = {
+  'Aluno 2':'Masculino', 'Aluno 3':'Feminino', 'Aluno 4':'Não informado', 'Aluno 5':'Feminino',
+  'Aluno 6':'Masculino', 'Aluno 7':'Masculino', 'Aluno 8':'Masculino', 'Aluno 9':'Feminino',
+  'Aluno 10':'Masculino', 'Aluno 11':'Masculino', 'Aluno 13':'Masculino', 'Aluno 14':'Feminino',
+  'Aluno 15':'Feminino', 'Aluno 16':'Feminino', 'Aluno 17':'Masculino', 'Aluno 18':'Masculino',
+  'Aluno 19':'Feminino', 'Aluno 20':'Feminino', 'Aluno 21':'Feminino', 'Aluno 22':'Masculino',
+  'Aluno 23':'Feminino', 'Aluno 24':'Masculino', 'Aluno 25':'Feminino', 'Aluno 26':'Masculino',
+  'Aluno 27':'Feminino', 'Aluno 28':'Feminino',
+};
+const ALUNO_QUOTE = {
+  'Aluno 2':'"pare de agir pelo instinto, e comece a agir pela razão"',
+  'Aluno 3':'"deveria ter mais empatia... ao invés de se revoltar e matar"',
+  'Aluno 4':'"você foi um garoto incrível que não merecia esse final"',
+  'Aluno 5':'"voce nao merece viver"',
+  'Aluno 6':'"você foi um ótimo líder... pensamento moral e ético"',
+  'Aluno 7':'"uma das pessoas mais corajosas por assumir a liderança"',
+  'Aluno 8':'"vc e o melhor na caça mn parabens"',
+  'Aluno 9':'"vc usou o medo para controlar os outros pq ele te controlava"',
+  'Aluno 10':'"Seja voce mesmo. Não mude sua forma de estar"',
+  'Aluno 11':'"só foi útil com os óculos... seja mais útil"',
+  'Aluno 13':'"vc foi bom enquanto durou"',
+  'Aluno 14':'"tome cuidado com os seus colegas caçadores... beijos"',
+  'Aluno 15':'"o chefe deveria ser o porquinho... voce se bloqueava"',
+  'Aluno 16':'"o melhor líder... seu único defeito foi não ter matado o Jack"',
+  'Aluno 17':'"você é uma pessoa boa... nunca deixe ninguém te subestimar"',
+  'Aluno 18':'"Você devia ter tido mais força e acabado com o Jack."',
+  'Aluno 19':'"não é motivo de descontar nas pessoas"',
+  'Aluno 20':'"corajoso que se esconde atrás de um grande grupo"',
+  'Aluno 21':'"continue confiando na razão... manter o grupo unido"',
+  'Aluno 22':'"ingênuo demais, devia revitar mais"',
+  'Aluno 23':'"não deveria dar ração pra tudo o que falam de você"',
+  'Aluno 24':'"nunca vi alguém demonstrar comprometimento numa situação precária"',
+  'Aluno 25':'"age muito sem pensar chega a ser burrice, muito covarde"',
+  'Aluno 26':'"poderia ter sido um pouco mais rude"',
+  'Aluno 27':'"pare de usar a desculpa de não ter sido tratado"',
+  'Aluno 28':'"não era pra vc ter matado o porquinho, era pra ser vc"',
+};
+const FRAMING_ROWS = Object.keys(FRAMING_ASSIGN).map(aluno => ({
+  aluno, gender: GENDER_BY_ALUNO[aluno], framing: FRAMING_ASSIGN[aluno]
+}));
+
+function renderFraming(genderFilter){
+  const rows = genderFilter==='Todos' ? FRAMING_ROWS : FRAMING_ROWS.filter(r=>r.gender===genderFilter);
+  const counts = {};
+  FRAMINGS.forEach(f=>counts[f.id]=0);
+  rows.forEach(r=>counts[r.framing]=(counts[r.framing]||0)+1);
+  const present = FRAMINGS.filter(f=>counts[f.id]>0);
+  const sorted = present.length ? [...present].sort((a,b)=>counts[b.id]-counts[a.id]) : [];
+
+  const svg = document.getElementById('framingChart');
+  const W=700, padL=210, padR=50, padT=10, padB=10;
+  const barH = 26;
+  const n = sorted.length || 1;
+  const chartH = Math.max(n*36 - 10, 40);
+  svg.setAttribute('viewBox', `0 0 ${W} ${chartH+padT+padB}`);
+  const chartW=W-padL-padR;
+  const gapY = n>1 ? (chartH - barH*n)/(n-1) : 0;
+  const maxVal = Math.max(...sorted.map(f=>counts[f.id]), 1);
+  let s = '';
+  if(sorted.length===0){
+    s = `<text x="${W/2}" y="${chartH/2}" font-size="13" fill="#655f52" text-anchor="middle" font-family="Work Sans, sans-serif">Nenhuma carta desse gênero foi classificada.</text>`;
+  }
+  sorted.forEach((f,i)=>{
+    const y = padT + i*(barH+gapY);
+    const v = counts[f.id];
+    const w = (v/maxVal)*chartW;
+    s += `<rect x="${padL}" y="${y}" width="${w}" height="${barH}" fill="${f.color}" rx="3"/>`;
+    s += `<text x="${padL-10}" y="${y+barH/2+4}" font-size="12.5" fill="#161512" text-anchor="end" font-family="Work Sans, sans-serif">${f.label}</text>`;
+    s += `<text x="${padL+w+8}" y="${y+barH/2+4}" font-size="12" fill="#655f52" text-anchor="start" font-family="Work Sans, sans-serif">${v}</text>`;
+  });
+  svg.innerHTML = s;
+
+  const tbody = document.getElementById('framingTable');
+  tbody.innerHTML = '';
+  (sorted.length ? sorted : FRAMINGS).forEach(f=>{
+    if(sorted.length && counts[f.id]===0) return;
+    const candidates = rows.filter(r=>r.framing===f.id);
+    const exAluno = candidates.length ? candidates[0].aluno : null;
+    const exText = exAluno ? ALUNO_QUOTE[exAluno] : '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><strong>${f.label}</strong></td><td style="font-size:12.5px; color:var(--bone-dim);">${f.desc}</td><td>${counts[f.id]}</td><td style="font-size:12.5px;">${exAluno ? exAluno+': <em>'+exText+'</em>' : '—'}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+const GENDER_FILTER_OPTIONS = ['Todos','Feminino','Masculino','Não informado'];
+const genderFilterWrap = document.getElementById('framingGenderFilter');
+let activeFramingGender = 'Todos';
+GENDER_FILTER_OPTIONS.forEach(g=>{
+  const btn = document.createElement('button');
+  btn.className = 'char-btn' + (g==='Todos' ? ' active' : '');
+  btn.textContent = g;
+  btn.addEventListener('click', ()=>{
+    activeFramingGender = g;
+    [...genderFilterWrap.children].forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderFraming(g);
+  });
+  genderFilterWrap.appendChild(btn);
+});
+renderFraming('Todos');
+
+// ---- letter browser ----
+const LETTER_TARGETS = ['Ralph','Jack','Porquinho','Simon','Roger'];
+const LETTERS = [
+  {name:'Aluno 2', gender:'Masculino', target:'Ralph', text:'Eu aconselho o Ralph, a parar de agir pelo instinto, e começar a agir pela razão'},
+  {name:'Aluno 3', gender:'Feminino', target:'Jack', text:'Jack, apesar de você ter os seus "motivos" para querer se separar dos meninos, ainda acho que você deveria ter mais empatia com quem queria te ajudar ao invés de querer se revoltar e matar os seus colegas, mesmo que não diretamente.'},
+  {name:'Aluno 4', gender:'Não informado', target:'Simon', text:'Simon, você foi um garoto incrível que não merecia esse final. Nunca te achei maluco, é acredito que os meninos precisavam ter te escutado e que eles teriam aprendido muito com você!'},
+  {name:'Aluno 5', gender:'Feminino', target:'Jack', text:'voce nao merece viver'},
+  {name:'Aluno 6', gender:'Masculino', target:'Ralph', text:'voce foi um otimo lider apesar das adiversidades vc teve um pensmentamento moral e etico e pensou eim cada um msm apesar de tudo'},
+  {name:'Aluno 7', gender:'Não informado', target:'Ralph', text:'Ralph, nessa ilha, você foi uma das pessoas mais corajosas por assumir a liderança em momentos difícies e agir por raciocínio lógico, razão e pelo o que é certo, achei muito corajoso da sua parte quando o adulto britânico chegou na ilha e você assumiu como líder e falhou com tal.'},
+  {name:'Aluno 8', gender:'Masculino', target:'Jack', text:'vc e o melhor na caça mn parabens'},
+  {name:'Aluno 9', gender:'Feminino', target:'Jack', text:'vc usou o medo para controlar os outros pq ele te controlava para não se o mais fraco de sua verdadeira natureza revelada vc se tornou m monstro que vivera dentro de vc te atormentano pelo medo e acoes que tomou mesmo sabendo que era errado achou o certo por estar na selva sem esperança'},
+  {name:'Aluno 10', gender:'Masculino', target:'Simon', text:'Seja voce mesmo. Não mude sua forma de estar por validação dos outros.'},
+  {name:'Aluno 11', gender:'Masculino', target:'Porquinho', text:'olha so vc so foi util com os oculos ne entao se acabar de vc resnacer e ter uma nova chance seja mais util'},
+  {name:'Aluno 12', gender:'Feminino', target:'Ralph', text:''},
+  {name:'Aluno 13', gender:'Masculino', target:'Porquinho', text:'vc foi bom enquanto durou'},
+  {name:'Aluno 14', gender:'Feminino', target:'Porquinho', text:'Porquinho,\ntome cuidado com os seus colegas caçadores, principalmente o roger, eles não querem o bem nem para eles mesmos, não confiem em ninguem que queira sair do seu grupo e criar um novo.\nProteja as crianças, e principalmente o seu abrigo e comida.\nfaça as pessoas confiarem em você desde o inicio, para que elas não se voltem contra voce.\nE cuidado com a cabeça, o sem pai do roger vai tentar te matar, e vai conseguir.\nbeijos.'},
+  {name:'Aluno 15', gender:'Feminino', target:'Ralph', text:'O chefe deveria ser o porquinho,pois, voce não pensa por si mesmo,o porquinho era quem sabia o que fazer e ele sabia liderar.Voce tinha boa intenção mas,não tinha muita atiude na hora de tomar alguma de tomar uma decisão importante,voce se bloqueaba e o porquinho que te falava o que fazer.'},
+  {name:'Aluno 16', gender:'Feminino', target:'Ralph', text:'Você foi o melhor líder que aquela ilha podia ter. Você cometeu erros mas admitiu eles e tentou concertar. Por mais que falasse que era medroso você enfrentou seus medos diversas vezes. Seu único defeito foi não ter matado o Jack.'},
+  {name:'Aluno 17', gender:'Masculino', target:'Porquinho', text:'Nick, você é uma pessoa boa, super inteligente e merece mais respeito. Continue sendo uma boa pessoa, é nunca deixe ninguém te subestimar'},
+  {name:'Aluno 18', gender:'Masculino', target:'Ralph', text:'Você devia ter tido mais força e acabado com o Jack.'},
+  {name:'Aluno 19', gender:'Feminino', target:'Jack', text:'eu penso que não importa a forma que você é tratado e se vc foi mal tratado em casa não é motivo de descontar nas pessoas.'},
+  {name:'Aluno 20', gender:'Feminino', target:'Jack', text:'Vira gente, tu matou seu maior admirador rapaz! Ce é muito cruel e infantil. Nem teu pai te aguentava que inventou um cargo fictício só pra se livrar de você. Você é tão corajoso que se esconde atrás de um grande grupo que por algum motivo te respeita e segue suas ordens, fazendo tudo o que você não consegue.'},
+  {name:'Aluno 21', gender:'Feminino', target:'Porquinho', text:'Continue confiando na razão e não temha medo de defender o que é certo. Sua inteligência pode ajudar a manter o grupo unido.'},
+  {name:'Aluno 22', gender:'Masculino', target:'Porquinho', text:'ingênuo demais, devia revitar mais'},
+  {name:'Aluno 23', gender:'Feminino', target:'Simon', text:'Você não deveria dar ração pra tudo o que falam de você, e não ficar andando pela floresta sozinho ainda mais a noite,se você estava sofrento por alucinações pode ter dito para algo,por exemplo o Porquinho ou o Ralph.'},
+  {name:'Aluno 24', gender:'Masculino', target:'Ralph', text:'Meu caro amigo Ralph.\nTiro da minha boca que eu estou muito impressionado, nunca vi alguém demonstrar comprometimento numa situação precária como a sua. Penso que foi complicado lidar com tanta criança assim, do mesmo jeito que foi lidar com o jack e seu grupo, mas você teve paciência, e seguiu em frente. Sinto muito pela morte de Nickie, ele não merecia estar naquele lugar infernal, você é muito corajoso, mas ao mesmo tempo que não é.\nEspero que volte logo, Ralph.'},
+  {name:'Aluno 25', gender:'Feminino', target:'Jack', text:'age muito sem pensar chega a ser burrice,muito covarde deixou o porquinho morrer e nao fez nada deixou o simon morrer e nao fez nada jogou o motorista do aviao de um precipicio'},
+  {name:'Aluno 26', gender:'Masculino', target:'Ralph', text:'Hola Ralph\nVi seu terrível acidente na ilha. você e os outros sobreviventes foram muito corajosos. Sua liderança foi boa mais poderia ter sido um pouco mais rude, acho que a falta dessa dureza na hora de liderar pode ter sido o principal motivo para criar inimigos na ilha por exemplo, o Jack, que se posicionou contra você, e levou o grupo a fazer coisas horripilantes, como a morte de várias pessoas, levando a quase te matar. Sorte que o resgate chegou e tiveram um bom fim para todos.'},
+  {name:'Aluno 27', gender:'Feminino', target:'Jack', text:'Jack acho que você deveria pensar mais nos próximos e parar de usar a desculpa de não ter sido tratado nem em casa pra ser uma pessoa escrota'},
+  {name:'Aluno 28', gender:'Feminino', target:'Roger', text:'Não era pra vc ter matado o porquinho, era pra ser vc.'},
+];
+
+const filterSelect = document.getElementById('letterFilter');
+LETTER_TARGETS.forEach(name=>{
+  const count = LETTERS.filter(l=>l.target===name).length;
+  const opt = document.createElement('option');
+  opt.value = name;
+  opt.textContent = `${name} (${count} carta${count===1?'':'s'})`;
+  filterSelect.appendChild(opt);
+});
+
+function renderLetters(target){
+  const list = document.getElementById('letterList');
+  list.innerHTML = '';
+  LETTERS.filter(l=>l.target===target).forEach(l=>{
+    const card = document.createElement('div');
+    card.className = 'letter-card';
+    const textHtml = l.text.trim()
+      ? l.text.replace(/</g,'&lt;')
+      : '(carta não escrita)';
+    card.innerHTML = `<div class="who">${l.name} <span class="gender-tag">— ${l.gender}</span></div><div class="text${l.text.trim()?'':' empty'}">${textHtml}</div>`;
+    list.appendChild(card);
+  });
+}
+filterSelect.addEventListener('change', e => renderLetters(e.target.value));
+renderLetters(LETTER_TARGETS[0]);
+</script>
+</body>
+</html>
